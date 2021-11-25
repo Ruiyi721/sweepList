@@ -29,12 +29,12 @@
       <div class="form-ctn">
         <div class="row g-3 align-items-center mb-4">
           <div class="col-auto">
-            <label for="inputPassword6" class="col-form-label">第一位</label>
+            <label class="col-form-label">第一位</label>
           </div>
-          <div class="col-auto">
+          <div class="col-auto w-100">
             <input
+              v-model="firstPerson"
               type="password"
-              id="inputPassword6"
               class="form-control"
               aria-describedby="passwordHelpInline"
               placeholder="請輸入第一位姓名"
@@ -44,12 +44,12 @@
 
         <div class="row g-3 align-items-center mb-4">
           <div class="col-auto">
-            <label for="inputPassword6" class="col-form-label">第二位</label>
+            <label class="col-form-label">第二位</label>
           </div>
-          <div class="col-auto">
+          <div class="col-auto w-100">
             <input
-              type="password"
-              id="inputPassword6"
+              v-model="secondPerson"
+              type="text"
               class="form-control"
               aria-describedby="passwordHelpInline"
               placeholder="請輸入第二位姓名"
@@ -57,23 +57,46 @@
           </div>
         </div>
 
-        <button type="button" class="btn btn-outline-info w-100">{{ msg }}</button>
+        <button type="button" class="btn btn-outline-info w-100 mb-2" @click="giveList()">GO</button>
+        <button type="button" class="btn btn-outline-info w-100" @click="cleanList()">RESTART</button>
       </div>
 
-      <ul class="list-area list-group list-group-flush">
-        <li class="list-group-item">An item</li>
-        <li class="list-group-item">A second item</li>
-        <li class="list-group-item">A third item</li>
-        <li class="list-group-item">A fourth item</li>
-        <li class="list-group-item">And a fifth one</li>
+      <ul v-if="showList" class="list-area list-group list-group-flush">
+        <li v-for="(item, idx) in newList" :key="idx" class="list-group-item">{{ item }}</li>
       </ul>
     </div>
 
     <script>
+      Vue.config.devtools = true;
       new Vue({
         el: '#app',
         data: {
-          msg :'123'
+          showList: false,
+          firstPerson: '',
+          secondPerson:'',
+          coworkersName: [ 'Dora', 'Larry' , 'Harry', 'Jordan', 'Leo' ],
+          newList: [],
+        },
+        methods: {
+          giveList() {
+            let vm = this;
+            this.showList = true;
+            if( this.coworkersName.find(e => e == this.secondPerson) ) {
+              let index = this.coworkersName.indexOf(this.secondPerson) // 找到當下值的index
+              // 跑10次
+              for(let i = index + 1; i <= index + 10; i++) {
+                // console.log(i % 5);
+                // console.log(this.coworkersName[i % 5]);
+                vm.newList.push(this.coworkersName[i % 5])
+                console.log(vm.newList);
+              }
+            }
+            return vm.newList;
+          },
+          cleanList() {
+            this.newList = [];
+            this.secondPerson = '';
+          }
         }
       })
     </script>

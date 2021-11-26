@@ -27,42 +27,46 @@
   <body>
     <div id="app" class="ctn">
       <div class="form-ctn">
-        <div class="row g-3 align-items-center mb-4">
+        <div class="g-3 align-items-center mb-3">
           <div class="col-auto">
-            <label class="col-form-label">第一位</label>
+            <label class="col-form-label">日期</label>
           </div>
           <div class="col-auto w-100">
             <input
-              v-model="firstPerson"
-              type="password"
+              v-model="date"
+              type="date"
               class="form-control"
               aria-describedby="passwordHelpInline"
-              placeholder="請輸入第一位姓名"
             />
           </div>
         </div>
 
-        <div class="row g-3 align-items-center mb-4">
+        <div class="g-3 align-items-center mb-4">
           <div class="col-auto">
-            <label class="col-form-label">第二位</label>
+            <label class="col-form-label">最後一位姓名</label>
           </div>
           <div class="col-auto w-100">
             <input
-              v-model="secondPerson"
+              v-model="lastPerson"
               type="text"
               class="form-control"
               aria-describedby="passwordHelpInline"
-              placeholder="請輸入第二位姓名"
+              placeholder="請輸入最後一位姓名"
             />
           </div>
         </div>
 
-        <button type="button" class="btn btn-outline-info w-100 mb-2" @click="giveList()">GO</button>
+        <button type="button" class="btn btn-outline-info w-100 mb-3" @click="getList()">GO</button>
         <button type="button" class="btn btn-outline-info w-100" @click="cleanList()">RESTART</button>
       </div>
 
-      <ul v-if="showList" class="list-area list-group list-group-flush">
-        <li v-for="(item, idx) in newList" :key="idx" class="list-group-item">{{ item }}</li>
+      <ul class="list-area list-group list-group-flush">
+        <!-- <li v-for="(item, idx) in newList" :key="idx" class="list-group-item">{{ item }}</li> -->
+        <!-- 這裡需跑4天資料給我, 先寫出可以跑出正確日期的迴圈 -->
+        <div v-for="(item, idx) in list" :key="idx" class="mb-4">
+          <span>{{ item.date }}</span>
+          <span v-for="name in item.name" class="me-2">{{ name }}</span>
+        </div>
       </ul>
     </div>
 
@@ -72,30 +76,33 @@
         el: '#app',
         data: {
           showList: false,
-          firstPerson: '',
-          secondPerson:'',
+          lastPerson: '',
           coworkersName: [ 'Dora', 'Larry' , 'Harry', 'Jordan', 'Leo' ],
           newList: [],
+
+          date: '',
+          list: [
+            { date: '2021-11-26', name: ['Dora', 'Leo'] },
+            { date: '2021-11-26', name: ['Jordan', 'Harry'] },
+          ]
         },
         methods: {
-          giveList() {
+          getList() {
             let vm = this;
             this.showList = true;
-            if( this.coworkersName.find(e => e == this.secondPerson) ) {
-              let index = this.coworkersName.indexOf(this.secondPerson) // 找到當下值的index
+            if( this.coworkersName.find(e => e == this.lastPerson) ) {
+              let index = this.coworkersName.indexOf(this.lastPerson) // 找到當下值的index
               // 跑10次
               for(let i = index + 1; i <= index + 10; i++) {
                 // console.log(i % 5);
-                // console.log(this.coworkersName[i % 5]);
                 vm.newList.push(this.coworkersName[i % 5])
-                console.log(vm.newList);
               }
             }
             return vm.newList;
           },
           cleanList() {
             this.newList = [];
-            this.secondPerson = '';
+            this.lastPerson = '';
           }
         }
       })

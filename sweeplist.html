@@ -60,13 +60,17 @@
         <button type="button" class="btn btn-outline-info w-100" @click="cleanList()">RESTART</button>
       </div>
 
-      <ul class="list-area list-group list-group-flush">
-        <!-- <li v-for="(item, idx) in newList" :key="idx" class="list-group-item">{{ item }}</li> -->
+      <ul v-if="showList" class="date-list-area list-group list-group-flush">
         <!-- 這裡需跑4天資料給我, 先寫出可以跑出正確日期的迴圈 -->
-        <div v-for="(item, idx) in list" :key="idx" class="mb-4">
-          <span>{{ item.date }}</span>
-          <span v-for="name in item.name" class="me-2">{{ name }}</span>
-        </div>
+        <li v-for="(item, idx) in newDateList" :key="idx" class="mb-4">
+          {{ item }}
+        </li>
+      </ul>
+      <ul v-if="showList" class="name-list-area list-group-flush">
+        <!-- 這裡需跑名單 -->
+        <li v-for="(item, idx) in newCoWorker" :key="idx" class="mb-4">
+          {{ item }}
+        </li>
       </ul>
     </div>
 
@@ -77,32 +81,46 @@
         data: {
           showList: false,
           lastPerson: '',
-          coworkersName: [ 'Dora', 'Larry' , 'Harry', 'Jordan', 'Leo' ],
-          newList: [],
-
           date: '',
-          list: [
-            { date: '2021-11-26', name: ['Dora', 'Leo'] },
-            { date: '2021-11-26', name: ['Jordan', 'Harry'] },
-          ]
+          newDateList: [],
+          coworkersName: [ 'Dora', 'Larry' , 'Harry', 'Jordan', 'Leo' ],
+          newCoWorker: [],
         },
         methods: {
           getList() {
+            // 判斷式裡面是要確定輸入值有在陣列裡
+            // if( this.coworkersName.find(e => e == this.lastPerson) ) {
+            //   let index = this.coworkersName.indexOf(this.lastPerson) // 找到當下值的index
+            //   // 跑10次
+            //   for(let i = index + 1; i <= index + 10; i++) {
+            //     // console.log(i % 5);
+            //     vm.newList.push(this.coworkersName[i % 5])
+            //   }
+            // }
+            // return vm.newList;
             let vm = this;
             this.showList = true;
-            if( this.coworkersName.find(e => e == this.lastPerson) ) {
-              let index = this.coworkersName.indexOf(this.lastPerson) // 找到當下值的index
-              // 跑10次
-              for(let i = index + 1; i <= index + 10; i++) {
+            if(this.coworkersName.find(e => e == this.lastPerson)) {
+              if(this.date == '') {
+                return
+              }
+              let date = new Date(this.date);
+              for(let i = 0; i <= 3; i++) {
+                date = new Date(date.setDate(date.getDate() + 7));
+                this.newDateList.push(date.toLocaleDateString());
+              }
+              let index = this.coworkersName.indexOf(this.lastPerson);
+              for(let i = index + 1; i <= index + 8; i++) {
                 // console.log(i % 5);
-                vm.newList.push(this.coworkersName[i % 5])
+                vm.newCoWorker.push(this.coworkersName[i % 5])
               }
             }
-            return vm.newList;
           },
           cleanList() {
-            this.newList = [];
+            this.newDateList = [];
+            this.newCoWorker = [];
             this.lastPerson = '';
+            this.date = '';
           }
         }
       })

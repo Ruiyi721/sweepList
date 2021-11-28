@@ -15,6 +15,21 @@
   border: 1px solid #dadada;
   border-radius: 1rem;
 }
-.list-area {
-  width: 330px;
+.date-list-area {
+  width: 100px;
+}
+.name-list-area {
+  width: 200px;
+  list-style-type: none;
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 0;
+  li {
+    width: 50%;
+  }
+}
+
+// bootstrap
+.list-group {
+  list-style-type: none !important;
 }

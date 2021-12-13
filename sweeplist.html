@@ -25,53 +25,63 @@
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14"></script>
   </head>
   <body>
-    <div id="app" class="ctn">
-      <div class="form-ctn">
-        <div class="g-3 align-items-center mb-3">
-          <div class="col-auto">
-            <label class="col-form-label">日期</label>
+    <div id="app" class="app-area">
+      <div class="d-flex align-items-center">
+        <div class="form-ctn">
+          <div class="g-3 align-items-center mb-3">
+            <div class="col-auto">
+              <label class="col-form-label">日期</label>
+            </div>
+            <div class="col-auto w-100">
+              <input
+                v-model="date"
+                type="date"
+                class="form-control"
+                aria-describedby="passwordHelpInline"
+              />
+            </div>
           </div>
-          <div class="col-auto w-100">
-            <input
-              v-model="date"
-              type="date"
-              class="form-control"
-              aria-describedby="passwordHelpInline"
-            />
+
+          <div class="g-3 align-items-center mb-4">
+            <div class="col-auto">
+              <label class="col-form-label">最後一位姓名</label>
+            </div>
+            <div class="col-auto w-100">
+              <input
+                v-model="lastPerson"
+                type="text"
+                class="form-control"
+                aria-describedby="passwordHelpInline"
+                placeholder="請輸入最後一位姓名"
+              />
+            </div>
           </div>
+
+          <button type="button" class="btn btn-outline-info w-100 mb-3" @click="getList()">GO</button>
+          <button type="button" class="btn btn-outline-info w-100" @click="cleanList()">RESTART</button>
         </div>
 
-        <div class="g-3 align-items-center mb-4">
-          <div class="col-auto">
-            <label class="col-form-label">最後一位姓名</label>
+        <div>
+          <div class="list-ctn">
+            <ul v-if="showList" class="date-list-area list-group list-group-flush">
+              <!-- 這裡需跑4天資料給我, 先寫出可以跑出正確日期的迴圈 -->
+              <li v-for="(item, idx) in newDateList" :key="idx" class="mb-3">
+                {{ item }}
+              </li>
+            </ul>
+            <ul v-if="showList" class="name-list-area list-group-flush">
+              <!-- 這裡需跑名單 -->
+              <li v-for="(item, idx) in newCoWorker" :key="idx" class="mb-3">
+                {{ item }}
+              </li>
+            </ul>
           </div>
-          <div class="col-auto w-100">
-            <input
-              v-model="lastPerson"
-              type="text"
-              class="form-control"
-              aria-describedby="passwordHelpInline"
-              placeholder="請輸入最後一位姓名"
-            />
+          <div>
+            每周五17:30為辦公室打掃時間
+            <p>打掃內容為<span class="tips"> 1.掃地 2.拖地 3.倒垃圾</span> </p> 
           </div>
         </div>
-
-        <button type="button" class="btn btn-outline-info w-100 mb-3" @click="getList()">GO</button>
-        <button type="button" class="btn btn-outline-info w-100" @click="cleanList()">RESTART</button>
       </div>
-
-      <ul v-if="showList" class="date-list-area list-group list-group-flush">
-        <!-- 這裡需跑4天資料給我, 先寫出可以跑出正確日期的迴圈 -->
-        <li v-for="(item, idx) in newDateList" :key="idx" class="mb-4">
-          {{ item }}
-        </li>
-      </ul>
-      <ul v-if="showList" class="name-list-area list-group-flush">
-        <!-- 這裡需跑名單 -->
-        <li v-for="(item, idx) in newCoWorker" :key="idx" class="mb-4">
-          {{ item }}
-        </li>
-      </ul>
     </div>
 
     <script>

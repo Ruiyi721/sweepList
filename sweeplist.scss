@@ -1,19 +1,22 @@
-.ctn {
+.app-area {
+  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  // flex-direction: column;
-  height: 100vh;
+  flex-direction: column;
 }
 .form-ctn {
   padding: 2rem;
-  margin-bottom: 2rem;
   margin-right: 2rem;
   width: 330px;
   height: fit-content;
-
   border: 1px solid #dadada;
   border-radius: 1rem;
+}
+.list-ctn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .date-list-area {
   width: 100px;
@@ -27,6 +30,9 @@
   li {
     width: 50%;
   }
+}
+.tips {
+  color: red;
 }
 
 // bootstrap

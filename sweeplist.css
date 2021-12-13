@@ -1,4 +1,5 @@
-.ctn {
+.app-area {
+  height: 100vh;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -8,12 +9,14 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  height: 100vh;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
 }
 
 .form-ctn {
   padding: 2rem;
-  margin-bottom: 2rem;
   margin-right: 2rem;
   width: 330px;
   height: -webkit-fit-content;
@@ -21,6 +24,18 @@
   height: fit-content;
   border: 1px solid #dadada;
   border-radius: 1rem;
+}
+
+.list-ctn {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 
 .date-list-area {
@@ -40,6 +55,10 @@
 
 .name-list-area li {
   width: 50%;
+}
+
+.tips {
+  color: red;
 }
 
 .list-group {

@@ -93,7 +93,7 @@
           lastPerson: '',
           date: '',
           newDateList: [],
-          coworkersName: [ 'Dora', 'Larry' , 'Jacky', 'Jordan'  ],
+          coworkersName: [ 'Larry', 'Dora', 'Jordan', 'Jacky'  ],
           newCoWorker: [],
         },
         methods: {
@@ -125,7 +125,6 @@
                 vm.newCoWorker.push(this.coworkersName[i % 4]);
               }
             }
-            console.log('456');
           },
           cleanList() {
             this.newDateList = [];

@@ -93,7 +93,7 @@
           lastPerson: '',
           date: '',
           newDateList: [],
-          coworkersName: [ 'Larry', 'Dora', 'Ray', 'Jacky', 'Jordan'  ],
+          coworkersName: [ 'Larry', 'Jordan', 'Dora', 'Jacky'  ],
           newCoWorker: [],
         },
         methods: {
@@ -122,7 +122,7 @@
               let index = this.coworkersName.indexOf(this.lastPerson);
               for(let i = index + 1; i <= index + 8; i++) {
                 // console.log(i % 5);
-                vm.newCoWorker.push(this.coworkersName[i % 5]);
+                vm.newCoWorker.push(this.coworkersName[i % 4]);
               }
             }
           },
